@@ -15,6 +15,7 @@ router.use(bodyParser.json());
 //bringing the database models
 const {userRegModel2} = require('../models/userRegistrationModel2');
 const {userRegModel1} = require('../models/userRegistartionModel1');
+const {userSpecificTotalLikeCountModel} = require('../models/userSpecificTotalLikeCount');
 
 
 //get route for second step of registration
@@ -91,11 +92,20 @@ bcrypt.hash(userDataTwo.password,saltRounds,(err,hash)=>{
 
               /*******************NODEMAILER ENDS HERE*************** */
 
-
         // saving userdata data to the database
         userDataTwo.save((err,doc)=>{
             if(err) res.status(400).send(err);
             else{
+
+                //initiating user specific like counter....
+              
+                var userSpecificLikeCounter = new userSpecificTotalLikeCountModel({
+                    email:user.email,
+                    collegeName:user.collegeName
+                });
+
+                userSpecificLikeCounter.save();
+
                 res.status(200).send('successfully created account...');
             }
         })

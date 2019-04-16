@@ -13,6 +13,8 @@ router.use(bodyParser.urlencoded({extended:false}));
 const {userRegModel2} = require('../models/userRegistrationModel2');
 const {postTextModel} = require('../models/postTextModel');
 const {postLikedByUserModel} = require('../models/postsLikedByUserModel');
+const {userSpecificTotalLikeCountModel} = require('../models/userSpecificTotalLikeCount');
+
 
 //This route is going to be the route for liking a particular text post...
 router.get('/textPost/:id',(req,res)=>{
@@ -38,10 +40,21 @@ router.get('/textPost/:id',(req,res)=>{
                              var whichPostLikedByWhichUser = new postLikedByUserModel({
                                  userId:user._id,
                                  postId:req.params.id
-                             })
+                             });
 
                              whichPostLikedByWhichUser.save();
-                             res.status(200).send('Successfully incremented likes...for post id '+req.params.id)
+
+                             //finding the email of person who posted using the post id:
+                             postTextModel.findOne({"_id":req.params.id},(err,doc)=>{
+                                 if(err) res.send(err)
+                                 else{
+                                     const email = doc.email;
+                                    //incrementing the universal databaset counts the dedicated no of likes to all the users..
+                                    userSpecificTotalLikeCountModel.findOneAndUpdate({"email":email},{$inc:{likes:1}},(err,doc)=>{
+                                        res.status(200).send('Successfully incremented likes...for post id '+req.params.id + 'like incremented for '+doc);
+                                    })
+                                 }
+                             })   
                          }
                      })
                     

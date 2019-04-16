@@ -15,6 +15,7 @@ const profile = require('./user/profile');
 const logout = require('./user/logout');
 const post = require('./user/post');
 const textPostLikes = require('./user/textPostLike');
+const election = require('./ambassadorElection/election');
 
 // intializing the app
 const app = express();
@@ -62,6 +63,10 @@ app.use('/post',post);
 //creating the private route for liking the posts(TEXT POSTS ONLY)
 //PRIVATE
 app.use('/like',textPostLikes);
+
+//time based route for election
+//PRIVATE
+app.use('/election',election);
 
 // starting the server
 const port = process.env.PORT || 8080;
