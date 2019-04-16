@@ -27,8 +27,13 @@ router.get('/profile',(req,res)=>{
                         res.status(404).send('Login first....');
                     }
                     else{
-                       
-                       res.status(200).send(user);
+                       userRegModel2.find({"collegeName":user.collegeName},(err,data)=>{
+                           if(err) res.send(err);
+                           else{
+                               res.status(200).send(data+"*******************"+user);
+
+                           }
+                       })
                         
                     }
                 }

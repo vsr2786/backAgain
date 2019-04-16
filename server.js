@@ -14,6 +14,7 @@ const login = require('./user/login');
 const profile = require('./user/profile');
 const logout = require('./user/logout');
 const post = require('./user/post');
+const textPostLikes = require('./user/textPostLike');
 
 // intializing the app
 const app = express();
@@ -54,10 +55,13 @@ app.use('/user',profile);
 //PRIVATE
 app.use('/logout',logout);
 
-//creating the route for getting all the feeds of user
+//creating the route for getting and setting all the feeds of user (including viewing the feeds by opening each of them)
 //PRIVATE
 app.use('/post',post);
 
+//creating the private route for liking the posts(TEXT POSTS ONLY)
+//PRIVATE
+app.use('/like',textPostLikes);
 
 // starting the server
 const port = process.env.PORT || 8080;
