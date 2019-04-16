@@ -43,7 +43,8 @@ router.post('/register/one',(req,res,next)=>{
             res.redirect(url.format({
                 pathname:"/auth/two/register",
                 query: {
-                 email:req.body.email
+                 email:req.body.email,
+                 collegeName:req.body.collegeName
                  }
               }));
         }

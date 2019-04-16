@@ -7,6 +7,10 @@ const userRegSchema2 = mongoose.Schema({
         trim:true,
         unique:1
     },
+    collegeName:{
+        type:String,
+        required:true
+    },
    name:{
     type:String,
     required:true,

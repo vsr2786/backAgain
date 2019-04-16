@@ -13,6 +13,7 @@ const userReg2 = require('./user/registration2');
 const login = require('./user/login');
 const profile = require('./user/profile');
 const logout = require('./user/logout');
+const post = require('./user/post');
 
 // intializing the app
 const app = express();
@@ -50,7 +51,13 @@ app.use('/auth',login);
 app.use('/user',profile);
 
 //creating the logout route for user
+//PRIVATE
 app.use('/logout',logout);
+
+//creating the route for getting all the feeds of user
+//PRIVATE
+app.use('/post',post);
+
 
 // starting the server
 const port = process.env.PORT || 8080;

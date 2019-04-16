@@ -27,7 +27,7 @@ router.get('/profile',(req,res)=>{
                         res.status(404).send('Login first....');
                     }
                     else{
-                        
+                       
                        res.status(200).send(user);
                         
                     }

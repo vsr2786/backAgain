@@ -21,6 +21,7 @@ router.get('/register',(req,res)=>{
     res.status(200).send('This is the get route for second step of form registration');
    //passing the email from the first step of registration to th esecond step
     console.log(req.query.email);
+    console.log(req.query.collegeName);
     // so the email will be auto filled in the next step step of form
 })
 
@@ -30,6 +31,7 @@ router.post('/register',(req,res)=>{
     //res.status(200).send('This is the post route for second step of form registration');
     var userDataTwo = new userRegModel2({
         email:req.body.email,
+        collegeName:req.body.collegeName,
         name:req.body.name,
         roll:req.body.roll,
         branch:req.body.branch,
