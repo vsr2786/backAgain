@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const nodemailer = require('nodemailer');
 
 
 // setting up the middleware
@@ -55,7 +56,42 @@ bcrypt.hash(userDataTwo.password,saltRounds,(err,hash)=>{
     if(err) throw err;
     else{
         userDataTwo.password = hash;
-        
+
+    /****************NODEMAILER FROM HERE********** */    
+        // creating transporter for nodemailer
+        let transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+              user: "monis.satidasani1@gmail.com", // generated ethereal user//host user email or admin email
+              pass: "Jprm**#9" // generated ethereal password//admin password
+            },tls:{
+              rejectUnauthorised:true
+            }
+          });
+
+                // setup email data with unicode symbols
+           // var link="http://"+req.get('host')+"/verify?id="+u_email;//verification link or the path of the user
+            let mailOptions = {
+            from: '"nodemailer👻" <monis.satidasani1@gmail.com>', // sender address
+            to: req.body.email, // list of receivers
+            subject: "no_reply just verify your account to be our member", // Subject line
+            text: "Hello world? Your mail is verified...", // plain text body
+            };
+            
+            //sending the mail
+            transporter.sendMail(mailOptions,function(err,info){
+                if(err)
+                console.log(err);
+                else {
+                  console.log("SUCCESS IN SENIDNG THE MAIL FROM NODE nodemailer");
+                }
+              });
+
+              /*******************NODEMAILER ENDS HERE*************** */
+
+
         // saving userdata data to the database
         userDataTwo.save((err,doc)=>{
             if(err) res.status(400).send(err);
