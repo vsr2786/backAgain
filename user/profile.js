@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
 
@@ -8,9 +9,32 @@ const cookieParser = require('cookie-parser');
 router.use(cookieParser());
 router.use(bodyParser.urlencoded({extended:false}));
 
+//bringing the database models
+const {userRegModel2} = require('../models/userRegistrationModel2');
+
 //get route for profile dashbord
 router.get('/profile',(req,res)=>{
-    res.status(200).send('This is the profile dashbord route for the user..(PRIVATE)')
+    const token = req.cookies.userLoginToken;
+    jwt.verify(token,'supersecret',(err,decode)=>{
+        if(err){
+            res.status(401).send('Unauthorized!..');
+        }
+        else{
+            userRegModel2.findOne({"_id":decode},(err,user)=>{
+                if(err) return err;
+                else{
+                    if(!user){
+                        res.status(404).send('Login first....');
+                    }
+                    else{
+                        
+                       res.status(200).send(user);
+                        
+                    }
+                }
+            })
+        }
+    })
 });
 
 

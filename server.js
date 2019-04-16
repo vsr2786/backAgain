@@ -12,6 +12,7 @@ const userReg1 = require('./user/registration1');
 const userReg2 = require('./user/registration2');
 const login = require('./user/login');
 const profile = require('./user/profile');
+const logout = require('./user/logout');
 
 // intializing the app
 const app = express();
@@ -24,6 +25,7 @@ mongoose.connect(Connection_URL,{ useNewUrlParser: true })
 .then(()=>{
     console.log('Database connected....')
 })
+
 
 
 // creating the home route
@@ -46,6 +48,9 @@ app.use('/auth',login);
 //creating the profile dashbord for each user
 //PRIVATE
 app.use('/user',profile);
+
+//creating the logout route for user
+app.use('/logout',logout);
 
 // starting the server
 const port = process.env.PORT || 8080;
