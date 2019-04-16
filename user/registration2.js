@@ -64,8 +64,8 @@ bcrypt.hash(userDataTwo.password,saltRounds,(err,hash)=>{
             port: 587,
             secure: false, // true for 465, false for other ports
             auth: {
-              user: "monis.satidasani1@gmail.com", // generated ethereal user//host user email or admin email
-              pass: "Jprm**#9" // generated ethereal password//admin password
+              user: "*********", // generated ethereal user//host user email or admin email(fill email and password)
+              pass: "*****" // generated ethereal password//admin password
             },tls:{
               rejectUnauthorised:true
             }
