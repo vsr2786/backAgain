@@ -16,6 +16,7 @@ router.use(bodyParser.json());
 const {userRegModel2} = require('../models/userRegistrationModel2');
 const {userRegModel1} = require('../models/userRegistartionModel1');
 const {userSpecificTotalLikeCountModel} = require('../models/userSpecificTotalLikeCount');
+const {voteCountModel} = require('../models/voteCountForElection');
 
 
 //get route for second step of registration
@@ -105,6 +106,14 @@ bcrypt.hash(userDataTwo.password,saltRounds,(err,hash)=>{
                 });
 
                 userSpecificLikeCounter.save();
+
+                //initiating specific vote counter
+                var userSpecificVoteCounter = new voteCountModel({
+                    email:user.email,
+                    collegeName:user.collegeName
+                });
+
+                userSpecificVoteCounter.save();
 
                 res.status(200).send('successfully created account...');
             }

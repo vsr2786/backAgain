@@ -30,6 +30,16 @@ const userRegSchema2 = mongoose.Schema({
    password:{
        type:String,
        required:true
+   },
+   isElligbleForElection:{
+       type:Boolean,
+       required:true,
+       default:false
+   },
+   isAmbassador:{
+       type:Boolean,
+       required:true,
+       default:false
    }
 })
 

@@ -66,7 +66,10 @@ app.use('/like',textPostLikes);
 
 //time based route for election
 //PRIVATE
+//if(Date.now()===1555475080247)
 app.use('/election',election);
+
+
 
 // starting the server
 const port = process.env.PORT || 8080;

@@ -6,6 +6,10 @@ const voteCountSchema = mongoose.Schema({
         required:true,
         unique:1
     },
+    collegeName:{
+        type:String,
+        required:true
+    },
     votes:{
         type:Number,
         default:0
