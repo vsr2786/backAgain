@@ -16,6 +16,9 @@ const logout = require('./user/logout');
 const post = require('./user/post');
 const textPostLikes = require('./user/textPostLike');
 const election = require('./ambassadorElection/election');
+const ambassadorDashbord = require('./ambassador/dashbordProfileAmbassdors');
+const ambassadorPostDashbord = require('./ambassador/dashbordPostAmbassador');
+
 
 // intializing the app
 const app = express();
@@ -69,7 +72,19 @@ app.use('/like',textPostLikes);
 //if(Date.now()===1555475080247)
 app.use('/election',election);
 
+// //test route for counting and making ambassador accesible only for admins
+// const counting = require('./ambassadorElection/countingAndMakingAmbassador');
+// app.use('/admin',counting);
 
+// creating route for the dashbord of ambassadors.....
+//PRIVATE ROUTE
+//accesible only by the ambassadors....
+app.use('/dashbord/profile',ambassadorDashbord);
+
+//creating route for posts for the dashbord of ambassadors...
+//PRIVATE ROUTE
+//accesible only by the ambassadors...
+app.use('/dashbord/feed',ambassadorPostDashbord);
 
 // starting the server
 const port = process.env.PORT || 8080;

@@ -144,7 +144,12 @@ router.post('/vote',(req,res)=>{
                         voteCountModel.findOneAndUpdate({"email":voteToWhome},{$inc:{votes:1}},(err,doc)=>{
                             if(err) res.send(err);
                             else{
-                                res.send(user.email+' Successfully casted your vote to '+doc.email);
+                                voteCountModel.find({"collegeName":user.collegeName}).sort({"votes":-1}).limit(1)
+                                .then(data => console.log(data))
+                                .catch(err => console.log(errr))
+                                res.send(user.email+' Successfully casted your vote to '+doc.email
+                                +'how are your contestents performing:- data not provided yet.... '
+                                );
                             }
                         })
 
